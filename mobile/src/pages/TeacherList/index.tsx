@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Picker } from "react-native";
 import {
   ScrollView,
   TextInput,
@@ -7,7 +7,7 @@ import {
   RectButton,
 } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from "@react-native-community/async-storage";
 
 import PageHeader from "../../components/PageHeader";
 import TeacherItem, { Teacher } from "../../components/TeacherItem";
@@ -19,7 +19,7 @@ import { useFocusEffect } from "@react-navigation/native";
 function TeacherList() {
   const [isFiltersVisible, setisFiltersVisible] = useState(false);
 
-  const [subject, setSubject] = useState("");
+  const [subject, setSubject] = useState("Artes");
   const [week_day, setWeekDay] = useState("");
   const [time, setTime] = useState("");
   const [teachers, setTeachers] = useState([]);
@@ -59,7 +59,7 @@ function TeacherList() {
 
   useFocusEffect(() => {
     loadFavorites();
-  })
+  });
 
   return (
     <View style={styles.container}>
@@ -74,23 +74,38 @@ function TeacherList() {
         {isFiltersVisible && (
           <View style={styles.searchForm}>
             <Text style={styles.label}>Matéria</Text>
-            <TextInput
+            <Picker
+              selectedValue={subject}
               style={styles.input}
-              value={subject}
-              onChangeText={(text) => setSubject(text)}
-              placeholder="Qual a matéria?"
-              placeholderTextColor="#c1bccc"
-            />
+              onValueChange={(text) => setSubject(text)}
+            >
+              <Picker.Item label="Artes" value="Artes" />
+              <Picker.Item label="Biologia" value="Biologia" />
+              <Picker.Item label="Ciências" value="Ciências" />
+              <Picker.Item label="Educação Fisica" value="Educação Fisica" />
+              <Picker.Item label="Fisica" value="Fisica" />
+              <Picker.Item label="Geografia" value="Geografia" />
+              <Picker.Item label="História" value="História" />
+              <Picker.Item label="Matemática" value="Matemática" />
+              <Picker.Item label="Português" value="Português" />
+              <Picker.Item label="Química" value="Química" />
+            </Picker>
             <View style={styles.inputGroup}>
               <View style={styles.inputBlock}>
                 <Text style={styles.label}>Dia da Semana</Text>
-                <TextInput
+                <Picker
                   style={styles.input}
-                  value={week_day}
-                  onChangeText={(text) => setWeekDay(text)}
-                  placeholder="Qual o dia?"
-                  placeholderTextColor="#c1bccc"
-                />
+                  selectedValue={week_day}
+                  onValueChange={(text) => setWeekDay(text)}
+                >
+                  <Picker.Item label="Domingo" value="0" />
+                  <Picker.Item label="Segunda-feira" value="1" />
+                  <Picker.Item label="Terça-feira" value="2" />
+                  <Picker.Item label="Quarta-feira" value="3" />
+                  <Picker.Item label="Quinta-feira" value="4" />
+                  <Picker.Item label="Sexta-feira" value="5" />
+                  <Picker.Item label="Sábado" value="6" />
+                </Picker>
               </View>
               <View style={styles.inputBlock}>
                 <Text style={styles.label}>Horário</Text>
@@ -120,15 +135,18 @@ function TeacherList() {
           paddingBottom: 16,
         }}
       >
+        
         {teachers.map((teacher: Teacher) => {
-          return (
-            <TeacherItem
-              key={teacher.id}
-              teacher={teacher}
-              favorited={favorites.includes(teacher.id)}
-            />
-          );
-        })}
+            return (
+              <TeacherItem
+                key={teacher.id}
+                teacher={teacher}
+                favorited={favorites.includes(teacher.id)}
+              />
+            );
+          } )
+        }
+          
       </ScrollView>
     </View>
   );
