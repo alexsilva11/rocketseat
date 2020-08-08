@@ -1,5 +1,6 @@
-# Proffy
-> Proffy é uma plataforma online para professores interessados em dar aulas de reforço e alunos que estão buscando esse serviço.
+<div align="center">
+  <img src="https://github.com/gabrielpulga/nlw2-proffy/blob/master/.github/logo.svg" alt"Proffy" title="Proffy" />
+</div>
 
 ## ❔ Sobre o projeto
 
